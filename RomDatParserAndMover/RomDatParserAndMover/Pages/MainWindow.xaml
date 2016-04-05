@@ -1,0 +1,9 @@
+﻿<NavigationWindow x:Class="RomDatParserAndMover.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:RomDatParserAndMover"
+        mc:Ignorable="d"
+        Title="Rom .DAT Parser and Mover" Height="250" Width="525" Source="StartPage.xaml">
+</NavigationWindow>
