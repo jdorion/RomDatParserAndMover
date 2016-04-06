@@ -36,27 +36,46 @@ namespace RomDatParserAndMoverLibrary
 
             if (!Errors.Any())
             {
-                RomList = ParseDAT(Keyword, IncludeClones);
+                RomList = ParseDAT(DAT, Keyword, IncludeClones);
             }
         }
 
-        private List<string> ParseDAT(string keyword, bool includeClones)
+        public static List<string> ParseDAT(XDocument dat, string keyword, bool includeClones)
         {
             // find all descendents with a romof attributes that matches the keyword,
             // then select the value of their name attribute
-            var result = DAT.Descendants().Where(xn => xn.Attribute("romof") != null && xn.Attribute("romof").Value == keyword).Select(xn => xn.Attribute("name").Value).ToList();
+            var result = dat.Descendants().Where(xn => IsMatch(xn, keyword)).Select(xn => xn.Attribute("name").Value).ToList();
 
             if (includeClones)
             {
                 var cloneList = new List<string>();
                 foreach (string romName in result)
                 {
-                    cloneList.AddRange(ParseDAT(romName, includeClones));
+                    cloneList.AddRange(ParseDAT(dat, romName, includeClones));
                 }
                 result.AddRange(cloneList);
             }
 
-            return result;
+            // if there exists a game called 'keyword'
+            if (dat.Descendants().Any(xn => xn.Attribute("name").AttributeValueMatches(keyword)))
+            {
+                result.Add(keyword);
+            }
+
+            // in case some got double-added
+            return result.Distinct().ToList();
         }
+
+        private static bool IsMatch(XElement node, string keyword)
+        {
+            if (node == null) { return false; }
+
+            if (node.Attribute("romof").AttributeValueMatches(keyword)) { return true; }
+            if (node.Attribute("cloneof").AttributeValueMatches(keyword)) { return true; }
+
+            return false;
+        }
+
+
     }
 }
