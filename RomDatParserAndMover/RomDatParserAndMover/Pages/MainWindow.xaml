@@ -5,5 +5,5 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RomDatParserAndMover"
         mc:Ignorable="d"
-        Title="Rom .DAT Parser and Mover" Height="250" Width="525" Source="StartPage.xaml">
+        Title="Rom .DAT Parser and Mover" Height="275" Width="525" Source="StartParse.xaml">
 </NavigationWindow>

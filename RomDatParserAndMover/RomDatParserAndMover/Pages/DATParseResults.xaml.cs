@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace RomDatParserAndMover.Pages
 {
@@ -20,9 +10,19 @@ namespace RomDatParserAndMover.Pages
     /// </summary>
     public partial class DATParseResults : Page
     {
-        public DATParseResults()
+        private List<string> RomList { get; set; }
+
+        public DATParseResults(List<string> romList)
         {
+            this.RomList = romList;
             InitializeComponent();
+            ParseResultsGrid.ItemsSource = RomList;
+            ParseResultsLbl.Content = "The following " + RomList.Count + " matching roms were found:";
+        }
+
+        private void ContinueBtn_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new StartFileMove(RomList));
         }
     }
 }

@@ -5,10 +5,30 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:RomDatParserAndMover.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="250" d:DesignWidth="525"
+      d:DesignHeight="275" d:DesignWidth="525"
       Title="ErrorPage">
 
-    <Grid>
-        
+    <Grid Background="#4E87D4">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Label Name="ErrorsLbl" Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" VerticalAlignment="Bottom" Foreground="White" Height="25">The following errors occurred:</Label>
+        <ScrollViewer Grid.Row="1" Margin="10,0,0,10">
+            <DataGrid Name="ErrorGrid" Width="Auto" HorizontalAlignment="Left"  AutoGenerateColumns="False" AlternatingRowBackground="Gainsboro" AlternationCount="2" IsReadOnly="True" Height="Auto">
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="Message" Width="360*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate >
+                                <TextBlock Text="{Binding}" TextWrapping="WrapWithOverflow"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </ScrollViewer>
     </Grid>
 </Page>

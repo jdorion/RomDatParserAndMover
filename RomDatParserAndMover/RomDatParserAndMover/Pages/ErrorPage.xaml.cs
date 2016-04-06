@@ -20,9 +20,10 @@ namespace RomDatParserAndMover.Pages
     /// </summary>
     public partial class ErrorPage : Page
     {
-        public ErrorPage()
+        public ErrorPage(List<string> errors)
         {
             InitializeComponent();
+            ErrorGrid.ItemsSource = errors;
         }
     }
 }

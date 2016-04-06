@@ -47,19 +47,30 @@ namespace UnitTests
         }
 
         [TestMethod]
+        public void TestNoIncludeClonesActuallyExcludesClones()
+        {
+            var dpt = new DATParser(GetTestDATPath(), "3countb", false);
+
+            Assert.IsFalse(dpt.Errors.Any());
+            Assert.IsTrue(dpt.RomList.Count() == 1);
+        }
+
+        [TestMethod]
         public void TestNoMatch()
         {
             var dpt = new DATParser(GetTestDATPath(), "buckfutter", false);
-            Assert.IsFalse(dpt.Errors.Any());
+            Assert.IsTrue(dpt.Errors.Any());
             Assert.IsTrue(dpt.RomList.Count() == 0);
+            Assert.IsTrue(dpt.Errors.Count() == 1);
         }
 
         [TestMethod]
         public void TestNoMatchIncludeClones()
         {
-            var dpt = new DATParser(GetTestDATPath(), "buckfutter", false);
-            Assert.IsFalse(dpt.Errors.Any());
+            var dpt = new DATParser(GetTestDATPath(), "buckfutter", true);
+            Assert.IsTrue(dpt.Errors.Any());
             Assert.IsTrue(dpt.RomList.Count() == 0);
+            Assert.IsTrue(dpt.Errors.Count() == 1);
         }
 
         private string GetTestDATPath()
